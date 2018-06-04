@@ -1,4 +1,5 @@
-package serverFarmasim._functions;
+package _functions;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 
