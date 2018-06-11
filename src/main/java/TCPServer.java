@@ -6,6 +6,7 @@ import _functions.Manipulador;
 
 
 
+
 public class TCPServer {
 
 	public static void main(String[] args){
