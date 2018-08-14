@@ -23,13 +23,17 @@ public class ThreadCliente extends Thread {
 	        System.out.println("Servidor: recebeu o valor " + msgRecebida);
 	        String aMsgRec[]= msgRecebida.split("-;-");
 	        System.out.println("Servidor: aMsgRec[0] " + aMsgRec[0]);
-	        if(aMsgRec[0].equals("login")) {	
-	        	opLogin(aMsgRec[1],aMsgRec[2].toUpperCase());
+	        
+	        
+	        if(aMsgRec[0].equals("Login")) {	
+	        	String msgEnviar = opLogin(aMsgRec[1],aMsgRec[2].toUpperCase());
+			    PrintWriter dout = new PrintWriter(clientSocket.getOutputStream(), true);
+		        dout.println(msgEnviar);
+				System.out.println("Servidor: enviou o valor " + msgEnviar);
 	        }
-			String enviar = "nada";
-	        PrintWriter dout = new PrintWriter(clientSocket.getOutputStream(), true);
-	        dout.println(enviar);
-			System.out.println("Servidor: enviou o valor " + enviar);
+	        
+	        
+
 			din.close();
 
 			} catch (IOException e) {
@@ -39,7 +43,8 @@ public class ThreadCliente extends Thread {
 		
 	}
 
-	private void opLogin(String id,String senha) {
+	private String opLogin(String id,String senha) {
+		String msgEnviar;
 		try {
 			System.out.println("Servidor: opLogin...");
 			
@@ -56,15 +61,21 @@ public class ThreadCliente extends Thread {
 							System.out.println("=========================");
 							System.out.println("Nome = " + nomePaciente);
 							System.out.println("=========================");
+							msgEnviar = "login" + "-;-SucessoLogin";
+							
+							
+							
 						}else {
 							System.out.println("=========================");
 							System.out.println("Login invalido "+ senha +" "+ senhaDB);
 							System.out.println("=========================");
+							msgEnviar = "login" + "-;-FalhaLogin-;-Senha incorreta";
 						}
 					}else {
 						System.out.println("=========================");
 						System.out.println("Login invalido não encontrado");
 						System.out.println("=========================");
+						msgEnviar = "login" + "-;-FalhaLogin-;-Senha incorreta";
 					}
 					
 				}
@@ -73,5 +84,6 @@ public class ThreadCliente extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return msgEnviar;
 	}
 }

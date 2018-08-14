@@ -11,6 +11,7 @@ public class TCPServer {
 
 	public static void main(String[] args){
 		ServerSocket serverSocket = null;
+		
 		try {
 
 			int porta = Integer.parseInt(Manipulador.getProps("prop.server.porta"));
@@ -18,6 +19,8 @@ public class TCPServer {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+		
+		
 		try {
 			System.out.println("Servidor: Aguardando requisições...");
 			while (true) {
